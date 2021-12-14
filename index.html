@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <meta charset="utf-8">
+        <title>Library</title>
+        <script src="js.js" defer></script>
+        <link rel="stylesheet" href="css.css">
+    </head>
+    <body class="body">
+        <h1 class="body__title title">Library </h1>
+
+        <div class="body__app">
+            <menu class="nav">
+            </menu>
+            <div class="slider body__slider">
+                <!-- <div class="book-card">
+                    <h2 class="book-card__title"></h2>
+                    <span class="book-card__author"></span>
+                    <span class="book-card__pages"></span>
+                    <span class="book-card__is-read"></span>
+                    <button class="book-card__remove button">Remove book</button>
+                </div> -->
+            </div>
+            <button class="button add-book-button">new book</button>
+        </div>
+        <div class="body__modal not-visible">
+            <form class="modal">
+                <label class="modal__label">
+                    Title
+                    <input name="title">
+                </label>
+                <label class="modal__label">
+                    Author
+                    <input name="author">
+                </label>
+                <label class="modal__label">
+                    pages
+                    <input type="number" min="0" max="999999" name="pages" >
+                </label>
+                <label class="modal__label">
+                    Have you read this book?
+                    <input name="is-read" type="checkbox">
+                </label>
+                <input class="modal__submit button" name="modal__submit" type="submit" value="Submit">
+            </form>
+        </div>
+       
+    </body>
+</htmL>
