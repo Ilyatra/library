@@ -40,6 +40,7 @@ function submitNewBook(event) {
 function renderNav() {
     let elemArr = myLibrary.map(elem => {
         let navItem = document.createElement('span');
+        navItem.classList.add('nav__item');
         navItem.innerHTML = elem.title;
         navItem.dataset.bookId = elem.id;
         navItem.addEventListener('click', selectBook);
@@ -50,9 +51,13 @@ function renderNav() {
 
 function renderBookCard(id) {
     const book = myLibrary[id];
+
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('slider__book-card');
+
     let bookCardElem = document.createElement('div');
     bookCardElem.classList.add('book-card');
-    bookCardElem.dataset.bookId = book.id
+    bookCardElem.dataset.bookId = book.id;
 
     let titleElem = document.createElement('h2');
     titleElem.classList.add('book-card__title');
@@ -61,7 +66,7 @@ function renderBookCard(id) {
     
     let authorElem = document.createElement('span');
     authorElem.classList.add('book-card__author');
-    authorElem,innerHTML = book.author;
+    authorElem.innerHTML = book.author;
     bookCardElem.append(authorElem);
 
     let pagesElem = document.createElement('span');
@@ -75,12 +80,18 @@ function renderBookCard(id) {
     bookCardElem.append(isReadElem);
 
     let removeButton = document.createElement('button');
+    let removeIcon = document.createElement('i');
+    removeIcon.classList.add('fas', 'fa-backspace')
     removeButton.classList.add('book-card__remove', 'button');
-    removeButton.innerHTML = 'Remove';
+    removeButton.append(removeIcon);
     bookCardElem.append(removeButton);
     bookCardElem.addEventListener('click', removeBook);
     
-    document.querySelector('.slider').append(bookCardElem);
+    wrapper.append(bookCardElem);
+    wrapper.append(removeButton);
+    
+    document.querySelector('.slider').append(wrapper);
+
 
     // document.querySelector('.book-card').dataset.bookId = book.id;
     // document.querySelector('.book-card__title').innerHTML = book.title;

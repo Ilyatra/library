@@ -7,53 +7,87 @@
   */
 .body {
     display: flex;
+    align-items: center;
+    margin: 0;
     flex-direction: column;
-    border: solid 1px red;
-}
-
-.title {
-    margin: auto;
+    background-color: rgb(232, 234, 235);
+    /* border: solid 1px red; */
 }
 
 .body__app {
+    position: fixed;
     display: flex;
-    flex-direction: row;
-    min-width: 1020px;
-    /* margin: auto; */
-    border: solid 1px red;
+    flex-direction: column;
+    flex-grow: 4;
+    max-width: 2020px;
+    margin: 170px 15vw 0 0;
+    /* border: solid 1px red; */
+}
+
+.body__title {
+    font-family: 'Murecho', sans-serif;
+    margin: auto;
 }
 
 .body__slider {
-    min-width: 720px;
+    flex-grow: 1;
+    /* display: flex; */
+    align-self: end;
+    /* min-width: 720px;
     max-width: 1020px;
-    min-height: 250px;
-    margin: 20px auto;
-    
+    min-height: 250px; */
+    /* margin: 20px auto; */
 }
 
 .slider {
-
     display: flex;
-    flex-wrap: wrap;
-    max-width: 1890px;
-    border: solid 1px green;
+    flex-direction: column;
+    /* align-items: end; */
+    /* flex-wrap: wrap; */
+    width: 430px;
+    border: solid 1px rgb(0, 0, 0);
+}
+
+.slider__book-card {
+    display: flex;
+    flex-direction: row;
+}
+
+.slider__book-card:nth-child(even) {
+    flex-direction: row-reverse;
 }
 
 .book-card {
-    /* #05445e */
-    background-image: linear-gradient(55deg,rgba(180,248,200)  0%, rgb(47,72,88) 100%);
     display: flex;
+    color: rgb(252, 252, 252);
     flex-direction: column;
-    height: 190px;
+    height: 160px;
     width: 240px;
     padding: 0 30px;
-    /* border: solid 1px red; */
-    margin: 15px 0 0 15px;
+    background-color: #1a1616;
+    border-radius: 2px;
+    margin-bottom: 1px;
+}
+
+
+.book-card__title {
+    font-family: 'Murecho', sans-serif;
+}
+
+.book-card__remove {
+    background-color: white;
+    border: none;
+    content: '';
+    font-size: 48px;
+    width: 130px;
+}
+
+.slider__book-card:nth-child(even) .book-card__remove {
+    transform: rotate(180deg);
 }
 
 .nav {
     font-size: 15px;
-    border: solid 1px red;
     overflow: clip;
     /* text-overflow: ellipsis " [..]"; */
     white-space: nowrap;
@@ -62,6 +96,11 @@
     display: flex;
     flex-direction: column;
     padding: 0 15px;
+}
+
+.nav__item {
+    cursor: pointer; 
+    
 }
 
 .modal {
