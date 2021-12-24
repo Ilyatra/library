@@ -13,18 +13,21 @@
     <body class="body">    
         <div class="body__app">
             <h1 class="body__title">My Library </h1>
-            <button class="button add-book-button">new book</button>
+            <div class="order-by"> 
+                <div class="order-by__item order-by__item_active">
+                    title
+                    <i class="fas fa-sort-down"></i>
+                </div>
+                <div class="order-by__item">
+                    author name
+                    <i class="fas fa-sort-down"></i>
+                </div>
+            </div>
             <menu class="nav">
             </menu>
+            <button class="button add-book-button fas fa-plus"></button>
         </div>
         <div class="slider body__slider">
-            <!-- <div class="book-card">
-                <h2 class="book-card__title"></h2>
-                <span class="book-card__author"></span>
-                <span class="book-card__pages"></span>
-                <span class="book-card__is-read"></span>
-                <button class="book-card__remove button">Remove book</button>
-            </div> -->
         </div>
         <div class="body__modal not-visible">
             <form class="modal">

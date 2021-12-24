@@ -25,8 +25,30 @@ function submitNewBook(event) {
         elem['is-read'].checked, myLibrary.length);
 }
 
+// addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
+// addBookToLibrary('The History and Remarkable Life of the truly Honourable Col. Jacque, commonly call\'d Col. Jack, who was Born a Gentleman, put \'Prentice to a Pick−Pocket, was Six and Twenty Years a Thief, and then Kidnapp\'d to Virginia, Came back a Merchant; was Five times married to Four Whores; went into the Wars, behav\'d bravely, got Preferment, was made Colonel of a Regiment, came over, and fled with the Chevalier, is still abroad compleating a Life of Wonders, and resolves to dye a General.','Daniel Defoe','549','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
 // addBookToLibrary('Book','Author','223','false', myLibrary.length);
 // addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('Book','Author','223','false', myLibrary.length);
+// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
+// addBookToLibrary('The History and Remarkable Life of the truly Honourable Col. Jacque, commonly call\'d Col. Jack, who was Born a Gentleman, put \'Prentice to a Pick−Pocket, was Six and Twenty Years a Thief, and then Kidnapp\'d to Virginia, Came back a Merchant; was Five times married to Four Whores; went into the Wars, behav\'d bravely, got Preferment, was made Colonel of a Regiment, came over, and fled with the Chevalier, is still abroad compleating a Life of Wonders, and resolves to dye a General.','Daniel Defoe','549','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('Book','Author','223','false', myLibrary.length);
+// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('Book','Author','223','false', myLibrary.length);
+// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('13','13','222','false', myLibrary.length);
+// addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
+// addBookToLibrary('The History and Remarkable Life of the truly Honourable Col. Jacque, commonly call\'d Col. Jack, who was Born a Gentleman, put \'Prentice to a Pick−Pocket, was Six and Twenty Years a Thief, and then Kidnapp\'d to Virginia, Came back a Merchant; was Five times married to Four Whores; went into the Wars, behav\'d bravely, got Preferment, was made Colonel of a Regiment, came over, and fled with the Chevalier, is still abroad compleating a Life of Wonders, and resolves to dye a General.','Daniel Defoe','549','false', myLibrary.length);
 // addBookToLibrary('13','13','222','false', myLibrary.length);
 // addBookToLibrary('Book','Author','223','false', myLibrary.length);
 // addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
@@ -84,20 +106,14 @@ function renderBookCard(id) {
     removeIcon.classList.add('fas', 'fa-backspace')
     removeButton.classList.add('book-card__remove', 'button');
     removeButton.append(removeIcon);
+    removeButton.addEventListener('click', removeBook);
     bookCardElem.append(removeButton);
-    bookCardElem.addEventListener('click', removeBook);
+    
     
     wrapper.append(bookCardElem);
     wrapper.append(removeButton);
     
     document.querySelector('.slider').append(wrapper);
-
-
-    // document.querySelector('.book-card').dataset.bookId = book.id;
-    // document.querySelector('.book-card__title').innerHTML = book.title;
-    // document.querySelector('.book-card__author').innerHTML = book.author;
-    // document.querySelector('.book-card__pages').innerHTML = 'pages: ' + book.pages;
-    // document.querySelector('.book-card__is-read').innerHTML = `${book.isRead === true ? "it is read" : "not read yet"}`;
 }
 
 function showModalWindowNewBook() {
