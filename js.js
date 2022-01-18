@@ -5,12 +5,33 @@ function Book(title, author, pages, isRead, containerLength) {
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
-    this.id = containerLength;
+    // this.id = containerLength;
 
     this.info = function(){
         return `${this.title} by ${author}, ${pages} pages, 
                 ${isRead ? "it is read" : "not read yet"}`;
     }
+}
+
+function addToLocalLibrary(title, author, pages, isRead) {
+    let localLibrary = JSON.parse(window.localStorage.getItem('library')) || [];
+    // let book = new Book(title, author, pages, isRead, localLibrary.length);
+    let book = new Book(title, author, pages, isRead);
+    localLibrary.push(book);
+    localStorage.setItem('library', JSON.stringify(localLibrary));
+}
+
+function updateMyLibrary() {
+    const localLibrary = JSON.parse(window.localStorage.getItem('library'));
+    myLibrary = localLibrary.map((item, index) => {
+        let book = {};
+        book.title = item.title;
+        book.author = item.author;
+        book.pages = item.pages;
+        book.isRead = item.isRead;
+        book.id = index;
+        return book;
+    }) || [];
 }
 
 function addBookToLibrary(title, author, pages, isRead, containerLength) {
@@ -21,8 +42,55 @@ function addBookToLibrary(title, author, pages, isRead, containerLength) {
 
 function submitNewBook(event) {
     const elem = event.target;
-    addBookToLibrary(elem.title.value, elem.author.value, elem.pages.value, 
-        elem['is-read'].checked, myLibrary.length);
+    addToLocalLibrary(elem.title.value, elem.author.value, elem.pages.value, 
+        elem['is-read'].checked);
+    updateMyLibrary();
+}
+
+function sortMyLibrary(order) {
+    switch (order) {
+        case 'titleD':
+            myLibrary.sort((a, b) => a.title > b.title);
+            break;
+        case 'titleU':
+            myLibrary.sort((a, b) => a.title < b.title);
+            break;
+        case 'authorD':
+            myLibrary.sort((a, b) => a.author > b.author);
+            break;
+        case 'authorU':
+            myLibrary.sort((a, b) => a.author < b.author);
+            break;
+    }
+}
+
+function changeOrder(e) {
+    let orderStr = e.target.firstChild.textContent.trim().split(' ')[0];
+    if (!e.target.classList.contains('order-by__item_active')) {
+        const oldOrderBy = document.querySelector('.order-by__item_active');
+        oldOrderBy.classList.remove('order-by__item_active');
+        let icon = oldOrderBy.querySelector('.fas');
+        if (icon.classList.contains('fa-sort-up')) {
+            icon.classList.remove('fa-sort-up');
+            icon.classList.add('fa-sort-down');
+        }
+        e.target.classList.add('order-by__item_active');
+        sortMyLibrary(orderStr + 'D');
+        renderNav();
+        return;
+    }
+
+    let icon = e.target.querySelector('.fas');
+    if (icon.classList.contains('fa-sort-down')){
+        icon.classList.remove('fa-sort-down');
+        icon.classList.add('fa-sort-up');
+        sortMyLibrary(orderStr + 'U');
+    }else{
+        icon.classList.remove('fa-sort-up');
+        icon.classList.add('fa-sort-down');
+        sortMyLibrary(orderStr + 'D');
+    }
+    renderNav();
 }
 
 // addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
@@ -60,22 +128,32 @@ function submitNewBook(event) {
 // addBookToLibrary('13','13','222','false', myLibrary.length);
 
 function renderNav() {
-    let elemArr = myLibrary.map(elem => {
-        let navItem = document.createElement('span');
+    let navElem = document.querySelector('.nav');
+    let elemArr = myLibrary.map((elem) => {
+        let navItem = document.createElement('a');
         navItem.classList.add('nav__item');
         navItem.innerHTML = elem.title;
         navItem.dataset.bookId = elem.id;
-        navItem.addEventListener('click', selectBook);
+        navItem.href = '#' + elem.id;
         return navItem;
     });
-    document.querySelector('.nav').append(...elemArr);
+
+    while (navElem.lastChild) {
+        navElem.removeChild(navElem.lastChild);
+    }
+    navElem.append(...elemArr);
 }
 
-function renderBookCard(id) {
-    const book = myLibrary[id];
+function renderBookCard(index) {
+    const book = myLibrary[index];
+
+    function cut(str) {
+        return str.slice(0, 77) + '…';
+    }
 
     let wrapper = document.createElement('div');
     wrapper.classList.add('slider__book-card');
+    wrapper.setAttribute('id', book.id);
 
     let bookCardElem = document.createElement('div');
     bookCardElem.classList.add('book-card');
@@ -83,12 +161,23 @@ function renderBookCard(id) {
 
     let titleElem = document.createElement('h2');
     titleElem.classList.add('book-card__title');
-    titleElem.innerHTML = book.title;    
+    if (book.title.length > 22) titleElem.style.fontSize = '17px';
+    if (book.title.length > 77) {
+        titleElem.innerHTML = cut(book.title);   
+    }else{
+        titleElem.innerHTML = book.title;   
+    }
+     
     bookCardElem.append(titleElem);
     
     let authorElem = document.createElement('span');
     authorElem.classList.add('book-card__author');
-    authorElem.innerHTML = book.author;
+    if (book.author.length > 22) authorElem.style.fontSize = '14px';
+    if (book.author.length > 77) {
+        authorElem.innerHTML = cut(book.author);   
+    }else{
+        authorElem.innerHTML = book.author;   
+    }
     bookCardElem.append(authorElem);
 
     let pagesElem = document.createElement('span');
@@ -109,29 +198,36 @@ function renderBookCard(id) {
     removeButton.addEventListener('click', removeBook);
     bookCardElem.append(removeButton);
     
-    
     wrapper.append(bookCardElem);
     wrapper.append(removeButton);
     
     document.querySelector('.slider').append(wrapper);
 }
 
+function renderSlider() {
+    const sliderElem = document.querySelector('.slider');
+
+    while (sliderElem.lastChild) {
+        sliderElem.removeChild(sliderElem.lastChild);
+    }
+
+    myLibrary.forEach((element, index) => {
+        renderBookCard(index);
+    });
+}
+
 function showModalWindowNewBook() {
     document.querySelector('.body__modal').classList.toggle('not-visible');
 }
 
-function selectBook() {
-    renderBookCard(this.dataset.bookId);
-}
-
 function removeBook() {
-    const id = document.querySelector('.book-card').dataset.bookId;
-    myLibrary.splice(id, 1);
+    const id = this.parentElement.id;
     let localLibrary = JSON.parse(window.localStorage.getItem('library'));
     localLibrary.splice(id, 1);
     localStorage.setItem('library', JSON.stringify(localLibrary));
-    // window.localStorage.removeItem([library[id]]);
-    console.log(myLibrary)
+    updateMyLibrary();
+    renderSlider();
+    renderNav();
 }
 
 function storageAvailable() {
@@ -148,21 +244,17 @@ function storageAvailable() {
 }
 
 if (storageAvailable()) {
-    // localStorageLibrary = JSON.parse(window.localStorage.getItem('library'));
-    // localStorage.setItem('library', JSON.stringify(myLibrary));
-    myLibrary = JSON.parse(window.localStorage.getItem('library'));
-    console.log(JSON.parse(window.localStorage.getItem('library'))[2])
-    console.log(myLibrary);
+    updateMyLibrary();
+    renderSlider();
+    if (myLibrary.length) {
+        sortMyLibrary('titleD');
+        renderNav();
+    }
 }
 
 document.querySelector('.add-book-button')
     .addEventListener('click', showModalWindowNewBook);
 document.querySelector('.modal')
     .addEventListener('submit', submitNewBook)
-// document.querySelector('.book-card__remove')
-//     .addEventListener('click', removeBook)
-
-renderNav();
-myLibrary.forEach((element, index) => {
-    renderBookCard(index);
-});
+document.querySelector('.order-by')
+    .addEventListener('click', changeOrder); 

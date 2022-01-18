@@ -109,9 +109,11 @@
 .order-by {
     display: flex;
     flex-direction: row;
+    
 }
 
 .order-by__item {
+    cursor: pointer;
     font-size: 16px;
     padding: 0 20px 0 0;
 }
