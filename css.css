@@ -60,8 +60,12 @@
     background-color: #1a1616;
     border-radius: 2px;
     margin-bottom: 1px;
+    transition: background-color 2s ease-out;
 }
 
+.blink {
+    background-color: #fafafa;
+}
 
 .book-card__title {
     font-size: 22px;
@@ -89,12 +93,17 @@
     height: 60vh;
     display: flex;
     flex-direction: column;
-    padding: 0 ;
+    padding: 0;
 }
 
 .nav__item {
+    color: black;
     cursor: pointer; 
-    
+    text-decoration: none;
+}
+
+.nav__item:visited {
+    color: black;
 }
 
 .add-book-button {

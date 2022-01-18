@@ -5,7 +5,6 @@ function Book(title, author, pages, isRead, containerLength) {
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
-    // this.id = containerLength;
 
     this.info = function(){
         return `${this.title} by ${author}, ${pages} pages, 
@@ -93,6 +92,15 @@ function changeOrder(e) {
     renderNav();
 }
 
+function blink(e) {
+    let elem = document.querySelector(e.target.hash).firstChild;
+    console.log(elem)
+    elem.classList.add('blink');  
+    setTimeout(()=>{
+        elem.classList.remove('blink');
+    }, 600)
+}
+
 // addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
 // addBookToLibrary('The History and Remarkable Life of the truly Honourable Col. Jacque, commonly call\'d Col. Jack, who was Born a Gentleman, put \'Prentice to a Pick−Pocket, was Six and Twenty Years a Thief, and then Kidnapp\'d to Virginia, Came back a Merchant; was Five times married to Four Whores; went into the Wars, behav\'d bravely, got Preferment, was made Colonel of a Regiment, came over, and fled with the Chevalier, is still abroad compleating a Life of Wonders, and resolves to dye a General.','Daniel Defoe','549','false', myLibrary.length);
 // addBookToLibrary('13','13','222','false', myLibrary.length);
@@ -133,8 +141,10 @@ function renderNav() {
         let navItem = document.createElement('a');
         navItem.classList.add('nav__item');
         navItem.innerHTML = elem.title;
-        navItem.dataset.bookId = elem.id;
-        navItem.href = '#' + elem.id;
+        // navItem.dataset.bookId = elem.id;
+        navItem.href = '#a' + elem.id;
+        navItem.addEventListener('click', blink);
+        // blink(document.querySelector('#'+elem.id))
         return navItem;
     });
 
@@ -153,11 +163,11 @@ function renderBookCard(index) {
 
     let wrapper = document.createElement('div');
     wrapper.classList.add('slider__book-card');
-    wrapper.setAttribute('id', book.id);
+    wrapper.setAttribute('id', 'a' + book.id);
 
     let bookCardElem = document.createElement('div');
     bookCardElem.classList.add('book-card');
-    bookCardElem.dataset.bookId = book.id;
+    // bookCardElem.dataset.bookId = book.id;
 
     let titleElem = document.createElement('h2');
     titleElem.classList.add('book-card__title');
