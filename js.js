@@ -1,4 +1,5 @@
 let myLibrary = [];
+let currentOrderBy = '';
 
 function Book(title, author, pages, isRead, containerLength) {
     this.title = title;
@@ -14,7 +15,6 @@ function Book(title, author, pages, isRead, containerLength) {
 
 function addToLocalLibrary(title, author, pages, isRead) {
     let localLibrary = JSON.parse(window.localStorage.getItem('library')) || [];
-    // let book = new Book(title, author, pages, isRead, localLibrary.length);
     let book = new Book(title, author, pages, isRead);
     localLibrary.push(book);
     localStorage.setItem('library', JSON.stringify(localLibrary));
@@ -47,6 +47,7 @@ function submitNewBook(event) {
 }
 
 function sortMyLibrary(order) {
+    currentOrderBy = order;
     switch (order) {
         case 'titleD':
             myLibrary.sort((a, b) => a.title > b.title);
@@ -141,10 +142,8 @@ function renderNav() {
         let navItem = document.createElement('a');
         navItem.classList.add('nav__item');
         navItem.innerHTML = elem.title;
-        // navItem.dataset.bookId = elem.id;
         navItem.href = '#a' + elem.id;
         navItem.addEventListener('click', blink);
-        // blink(document.querySelector('#'+elem.id))
         return navItem;
     });
 
@@ -231,13 +230,15 @@ function showModalWindowNewBook() {
 }
 
 function removeBook() {
-    const id = this.parentElement.id;
+    const id = this.parentElement.id.slice(1);
+    console.log(id)
     let localLibrary = JSON.parse(window.localStorage.getItem('library'));
     localLibrary.splice(id, 1);
     localStorage.setItem('library', JSON.stringify(localLibrary));
     updateMyLibrary();
-    renderSlider();
+    sortMyLibrary(currentOrderBy)
     renderNav();
+    renderSlider();
 }
 
 function storageAvailable() {
