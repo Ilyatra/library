@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Library</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="js.js" defer></script>
         <link rel="stylesheet" href="css.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +13,8 @@
     </head>
     <body class="body">    
         <div class="body__app">
-            <h1 class="body__title">My Library </h1>
-            <div class="order-by"> 
+                <h1 class="body__title">My Library </h1>
+                <div class="order-by"> 
                 <div class="order-by__item order-by__item_active">
                     title
                     <i class="fas fa-sort-down"></i>
@@ -41,13 +42,17 @@
                 </label>
                 <label class="modal__label">
                     pages
-                    <input type="number" min="0" max="9999" name="pages" >
+                    <input type="number" min="0" max="999999" name="pages" >
                 </label>
-                <label class="modal__label">
+                <label class="modal__label row">
                     Have you read this book?
                     <input name="is-read" type="checkbox">
                 </label>
-                <input class="modal__submit button" name="modal__submit" type="submit" value="Submit">
+                <div class="row">
+                    <button class="modal__cancel button">Cancel</button>
+                    <input class="modal__submit button" name="modal__submit" type="submit" value="Submit">
+                </div>
+                
             </form>
         </div>
        

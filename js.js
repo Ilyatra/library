@@ -166,7 +166,6 @@ function renderBookCard(index) {
 
     let bookCardElem = document.createElement('div');
     bookCardElem.classList.add('book-card');
-    // bookCardElem.dataset.bookId = book.id;
 
     let titleElem = document.createElement('h2');
     titleElem.classList.add('book-card__title');
@@ -223,6 +222,9 @@ function renderSlider() {
     myLibrary.forEach((element, index) => {
         renderBookCard(index);
     });
+    let addNewBookButton = document.createElement('button');
+    addNewBookButton.classList.add('button', 'add-book-button', 'fas', 'fa-plus');
+    sliderElem.appendChild(addNewBookButton);
 }
 
 function showModalWindowNewBook() {
@@ -263,9 +265,11 @@ if (storageAvailable()) {
     }
 }
 
-document.querySelector('.add-book-button')
+document.querySelectorAll('.add-book-button')[0]
     .addEventListener('click', showModalWindowNewBook);
-document.querySelector('.modal')
-    .addEventListener('submit', submitNewBook)
+document.querySelector('.modal__cancel')
+    .addEventListener('click', showModalWindowNewBook);
+document.querySelector('.modal__submit')
+    .addEventListener('click', submitNewBook)
 document.querySelector('.order-by')
     .addEventListener('click', changeOrder); 
