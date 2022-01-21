@@ -1,5 +1,6 @@
 let myLibrary = [];
 let currentOrderBy = '';
+let editModeOn = false;
 
 function Book(title, author, pages, isRead, containerLength) {
     this.title = title;
@@ -22,6 +23,7 @@ function addToLocalLibrary(title, author, pages, isRead) {
 
 function updateMyLibrary() {
     const localLibrary = JSON.parse(window.localStorage.getItem('library'));
+    if (!localLibrary) return;
     myLibrary = localLibrary.map((item, index) => {
         let book = {};
         book.title = item.title;
@@ -30,7 +32,7 @@ function updateMyLibrary() {
         book.isRead = item.isRead;
         book.id = index;
         return book;
-    }) || [];
+    });
 }
 
 function addBookToLibrary(title, author, pages, isRead, containerLength) {
@@ -40,10 +42,44 @@ function addBookToLibrary(title, author, pages, isRead, containerLength) {
 }
 
 function submitNewBook(event) {
+    if (editModeOn >= 0) {
+        let localLibrary = JSON.parse(window.localStorage.getItem('library'));
+        localLibrary.splice(editModeOn, 1);
+        localStorage.setItem('library', JSON.stringify(localLibrary));
+        updateMyLibrary();
+        sortMyLibrary(currentOrderBy)
+        renderNav();
+        renderSlider();
+    }
+
     const elem = event.target;
+    console.log(elem)
     addToLocalLibrary(elem.title.value, elem.author.value, elem.pages.value, 
         elem['is-read'].checked);
     updateMyLibrary();
+}
+
+function removeBook() {
+    const id = this.parentElement.id.slice(1);
+    let localLibrary = JSON.parse(window.localStorage.getItem('library'));
+    localLibrary.splice(id, 1);
+    localStorage.setItem('library', JSON.stringify(localLibrary));
+    updateMyLibrary();
+    sortMyLibrary(currentOrderBy)
+    renderNav();
+    renderSlider();
+}
+
+function bookCardEdit() {
+    let id = this.parentElement.id.slice(1);
+    let book = JSON.parse(window.localStorage.getItem('library'))[id];
+    document.querySelector('.body__modal').classList.toggle('not-visible');
+    editModeOn = id;
+    let modal = document.querySelector('.modal')
+    modal.elements.title.value = book.title;
+    modal.elements.author.value = book.author;
+    modal.elements.pages.value = book.pages;
+    modal.elements['is-read'].checked = book.isRead;
 }
 
 function sortMyLibrary(order) {
@@ -205,6 +241,7 @@ function renderBookCard(index) {
     removeButton.append(removeIcon);
     removeButton.addEventListener('click', removeBook);
     bookCardElem.append(removeButton);
+    bookCardElem.addEventListener('click', bookCardEdit)
     
     wrapper.append(bookCardElem);
     wrapper.append(removeButton);
@@ -223,24 +260,19 @@ function renderSlider() {
         renderBookCard(index);
     });
     let addNewBookButton = document.createElement('button');
-    addNewBookButton.classList.add('button', 'add-book-button', 'fas', 'fa-plus');
+    addNewBookButton.classList.add('button', 'add-book-button__slider', 'fas', 'fa-plus');
     sliderElem.appendChild(addNewBookButton);
 }
 
-function showModalWindowNewBook() {
+function showModalWindowNewBook(e) {
+    e.preventDefault()
+    editModeOn = false;
+    let modal = document.querySelector('.modal')
+    modal.elements.title.value = '';
+    modal.elements.author.value = '';
+    modal.elements.pages.value = '';
+    modal.elements['is-read'].checked = false;
     document.querySelector('.body__modal').classList.toggle('not-visible');
-}
-
-function removeBook() {
-    const id = this.parentElement.id.slice(1);
-    console.log(id)
-    let localLibrary = JSON.parse(window.localStorage.getItem('library'));
-    localLibrary.splice(id, 1);
-    localStorage.setItem('library', JSON.stringify(localLibrary));
-    updateMyLibrary();
-    sortMyLibrary(currentOrderBy)
-    renderNav();
-    renderSlider();
 }
 
 function storageAvailable() {
@@ -265,11 +297,13 @@ if (storageAvailable()) {
     }
 }
 
-document.querySelectorAll('.add-book-button')[0]
+document.querySelector('.add-book-button')
     .addEventListener('click', showModalWindowNewBook);
 document.querySelector('.modal__cancel')
     .addEventListener('click', showModalWindowNewBook);
-document.querySelector('.modal__submit')
-    .addEventListener('click', submitNewBook)
+    document.querySelector('.add-book-button__slider')
+    .addEventListener('click', showModalWindowNewBook);
+document.querySelector('.modal')
+    .addEventListener('submit', submitNewBook);
 document.querySelector('.order-by')
     .addEventListener('click', changeOrder); 
