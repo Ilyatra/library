@@ -53,7 +53,6 @@ function submitNewBook(event) {
     }
 
     const elem = event.target;
-    console.log(elem)
     addToLocalLibrary(elem.title.value, elem.author.value, elem.pages.value, 
         elem['is-read'].checked);
     updateMyLibrary();
@@ -75,7 +74,7 @@ function bookCardEdit() {
     let book = JSON.parse(window.localStorage.getItem('library'))[id];
     document.querySelector('.body__modal').classList.toggle('not-visible');
     editModeOn = id;
-    let modal = document.querySelector('.modal')
+    let modal = document.querySelector('.modal');
     modal.elements.title.value = book.title;
     modal.elements.author.value = book.author;
     modal.elements.pages.value = book.pages;
@@ -129,9 +128,26 @@ function changeOrder(e) {
     renderNav();
 }
 
+function search() {
+    const needle = this.value.toLowerCase();
+    let result = [];
+    if (needle == ''){
+        updateMyLibrary();
+        sortMyLibrary(currentOrderBy);
+        renderNav();
+        return
+    }
+    for (let i = 0; i < myLibrary.length; i++) {
+        if(myLibrary[i][currentOrderBy.slice(0, -1)].toLowerCase().startsWith(needle)) {
+            result.push(myLibrary[i]);
+        }
+    }
+    myLibrary = result;
+    renderNav();
+}
+
 function blink(e) {
     let elem = document.querySelector(e.target.hash).firstChild;
-    console.log(elem)
     elem.classList.add('blink');  
     setTimeout(()=>{
         elem.classList.remove('blink');
@@ -177,7 +193,7 @@ function renderNav() {
     let elemArr = myLibrary.map((elem) => {
         let navItem = document.createElement('a');
         navItem.classList.add('nav__item');
-        navItem.innerHTML = elem.title;
+        navItem.innerHTML = elem[currentOrderBy.slice(0, -1)];
         navItem.href = '#a' + elem.id;
         navItem.addEventListener('click', blink);
         return navItem;
@@ -307,3 +323,5 @@ document.querySelector('.modal')
     .addEventListener('submit', submitNewBook);
 document.querySelector('.order-by')
     .addEventListener('click', changeOrder); 
+document.querySelector('.search')
+    .addEventListener('input', search);

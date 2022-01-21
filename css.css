@@ -43,7 +43,7 @@
     width: 450px;
     border-left: solid 1px rgb(0, 0, 0);
     z-index: 99;
-    height: 100vh;
+    min-height: 100vh;
     background-color: white;
 }
 
@@ -102,6 +102,10 @@
     content: '';
     font-size: 48px;
     width: 130px;
+}
+
+.search {
+    margin-top: 7px; 
 }
 
 .nav {
