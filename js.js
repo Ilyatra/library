@@ -154,40 +154,6 @@ function blink(e) {
     }, 600)
 }
 
-// addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
-// addBookToLibrary('The History and Remarkable Life of the truly Honourable Col. Jacque, commonly call\'d Col. Jack, who was Born a Gentleman, put \'Prentice to a Pick−Pocket, was Six and Twenty Years a Thief, and then Kidnapp\'d to Virginia, Came back a Merchant; was Five times married to Four Whores; went into the Wars, behav\'d bravely, got Preferment, was made Colonel of a Regiment, came over, and fled with the Chevalier, is still abroad compleating a Life of Wonders, and resolves to dye a General.','Daniel Defoe','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('Book','Author','223','false', myLibrary.length);
-// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('Book','Author','223','false', myLibrary.length);
-// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
-// addBookToLibrary('The History and Remarkable Life of the truly Honourable Col. Jacque, commonly call\'d Col. Jack, who was Born a Gentleman, put \'Prentice to a Pick−Pocket, was Six and Twenty Years a Thief, and then Kidnapp\'d to Virginia, Came back a Merchant; was Five times married to Four Whores; went into the Wars, behav\'d bravely, got Preferment, was made Colonel of a Regiment, came over, and fled with the Chevalier, is still abroad compleating a Life of Wonders, and resolves to dye a General.','Daniel Defoe','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('Book','Author','223','false', myLibrary.length);
-// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('Book','Author','223','false', myLibrary.length);
-// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('La Légende et les Aventures héroïques, joyeuses et glorieuses d\'Ulenspiegel et de Lamme Goedzak au pays de Flandres et ailleurs','Charles-Theodore-Henri De Coster','580','false', myLibrary.length);
-// addBookToLibrary('The History and Remarkable Life of the truly Honourable Col. Jacque, commonly call\'d Col. Jack, who was Born a Gentleman, put \'Prentice to a Pick−Pocket, was Six and Twenty Years a Thief, and then Kidnapp\'d to Virginia, Came back a Merchant; was Five times married to Four Whores; went into the Wars, behav\'d bravely, got Preferment, was made Colonel of a Regiment, came over, and fled with the Chevalier, is still abroad compleating a Life of Wonders, and resolves to dye a General.','Daniel Defoe','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('Book','Author','223','false', myLibrary.length);
-// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('Book','Author','223','false', myLibrary.length);
-// addBookToLibrary('Second book','Another author','549','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-// addBookToLibrary('13','13','222','false', myLibrary.length);
-
 function renderNav() {
     let navElem = document.querySelector('.nav');
     let elemArr = myLibrary.map((elem) => {
